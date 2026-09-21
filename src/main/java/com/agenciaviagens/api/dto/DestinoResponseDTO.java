@@ -4,9 +4,16 @@ import com.agenciaviagens.api.model.Destino;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-
+/**
+ * Formato de saida de um destino.
+ *
+ * Alem de controlar o que e exposto, este DTO tem um papel extra agora que
+ * usamos JPA: ele quebra o ciclo Destino -> Avaliacoes -> Destino, que
+ * causaria recursao infinita na serializacao para JSON.
+ */
 @Getter
 @AllArgsConstructor
 public class DestinoResponseDTO {
@@ -15,15 +22,12 @@ public class DestinoResponseDTO {
     private String nome;
     private String localizacao;
     private String descricao;
-    private Double precoPacote;
+    private BigDecimal precoPacote;
     private Boolean hoteisDisponiveis;
     private List<String> atividadesTuristicas;
-    private Double mediaAvaliacao;
+    private BigDecimal mediaAvaliacao;
     private Integer quantidadeAvaliacoes;
 
-    /**
-     * converte a Entity (dado interno) no DTO (dado exposto).
-     */
     public static DestinoResponseDTO fromEntity(Destino destino) {
         return new DestinoResponseDTO(
                 destino.getId(),

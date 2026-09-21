@@ -4,3 +4,7 @@ target/
 *.iml
 .vscode/
 .DS_Store
+
+# Arquivos locais com credenciais (nunca versionar)
+*.env
+application-local.properties
